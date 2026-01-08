@@ -1,10 +1,10 @@
 package application;
 
-import boardgame.Position;
+import Chess.ChessMatch;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Position pos = new Position(2, 3);
-        System.out.println(pos);
+        ChessMatch chessMatch = new ChessMatch();
+        UI.printBoard(chessMatch.getPieces());
     }
 }
