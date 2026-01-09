@@ -14,5 +14,11 @@ public class King extends ChessPiece {
   public String toString() {
     return getColor() == Color.WHITE ? "\u2654" : "\u265A"; // \u2654 é ♔ e \u265A é ♚
   }
+
+  @Override
+  public boolean[][] possibleMoves() {
+    boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+    return mat;
+  }
   
 }

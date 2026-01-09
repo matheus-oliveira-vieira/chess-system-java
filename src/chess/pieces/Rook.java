@@ -14,4 +14,10 @@ public class Rook extends ChessPiece{
   public String toString() {
     return getColor() == Color.WHITE ? "\u2656" : "\u265C"; // \u2656 é ♖ e \u265C é ♜
   }
+
+  @Override
+  public boolean[][] possibleMoves() {
+    boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+    return mat;
+  }
 }
