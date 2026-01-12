@@ -112,6 +112,23 @@ public class ChessMatch {
       piecesOnTheBoard.remove(capturedPiece);
       capturedPieces.add(capturedPiece);
     }
+    //castling kingside
+    if (p instanceof King && targetPosition.getColumn() == sourcePosition.getColumn() + 2) {
+      Position sourceR = new Position(sourcePosition.getRow(), sourcePosition.getColumn() + 3);
+      Position targetR = new Position(sourcePosition.getRow(), sourcePosition.getColumn() + 1);
+      ChessPiece R = (ChessPiece)board.removePiece(sourceR);
+      board.placePiece(R, targetR);
+      R.increaseMoveCount();
+    } 
+
+    //castling queenside
+    if (p instanceof King && targetPosition.getColumn() == sourcePosition.getColumn() - 2) {
+      Position sourceR = new Position(sourcePosition.getRow(), sourcePosition.getColumn() - 4);
+      Position targetR = new Position(sourcePosition.getRow(), sourcePosition.getColumn() - 1);
+      ChessPiece R = (ChessPiece)board.removePiece(sourceR);
+      board.placePiece(R, targetR);
+      R.increaseMoveCount();
+    } 
     return capturedPiece;
   }
 
@@ -124,6 +141,24 @@ public class ChessMatch {
       capturedPieces.remove(capturedPiece);
       piecesOnTheBoard.add(capturedPiece);
     }
+
+    //castling kingside
+    if (p instanceof King && target.getColumn() == source.getColumn() + 2) {
+      Position sourceR = new Position(source.getRow(), source.getColumn() + 3);
+      Position targetR = new Position(source.getRow(), source.getColumn() + 1);
+      ChessPiece R = (ChessPiece)board.removePiece(targetR);
+      board.placePiece(R, sourceR);
+      R.decreaseMoveCount();
+    } 
+
+    //castling queenside
+    if (p instanceof King && target.getColumn() == source.getColumn() - 2) {
+      Position sourceR = new Position(source.getRow(), source.getColumn() - 4);
+      Position targetR = new Position(source.getRow(), source.getColumn() - 1);
+      ChessPiece R = (ChessPiece)board.removePiece(targetR);
+      board.placePiece(R, sourceR);
+      R.decreaseMoveCount();
+    } 
   }
 
   private void nextTurn(){
@@ -190,7 +225,7 @@ public class ChessMatch {
   private void initialSetup() {
     placeNewPiece('h', 1, new Rook(board, Color.WHITE));
     placeNewPiece('a', 1, new Rook(board, Color.WHITE));
-    placeNewPiece('e', 1, new King(board, Color.WHITE));
+    placeNewPiece('e', 1, new King(board, Color.WHITE, this));
     placeNewPiece('a', 2, new Pawn(board, Color.WHITE));
     placeNewPiece('b', 2, new Pawn(board, Color.WHITE));
     placeNewPiece('c', 2, new Pawn(board, Color.WHITE));
@@ -208,7 +243,7 @@ public class ChessMatch {
 
     placeNewPiece('h', 8, new Rook(board, Color.BLACK));
     placeNewPiece('a', 8, new Rook(board, Color.BLACK));
-    placeNewPiece('e', 8, new King(board, Color.BLACK));
+    placeNewPiece('e', 8, new King(board, Color.BLACK, this));
     placeNewPiece('a', 7, new Pawn(board, Color.BLACK));
     placeNewPiece('b', 7, new Pawn(board, Color.BLACK));
     placeNewPiece('c', 7, new Pawn(board, Color.BLACK));
